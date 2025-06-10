@@ -21,8 +21,6 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/rogpeppe/go-internal v1.9.0 h1:73kH8U+JUqXU8lRuOHeVHaa/SZPifC7BkcraZVejAe8=
 github.com/rogpeppe/go-internal v1.9.0/go.mod h1:WtVeX8xhTBvf0smdhujwtBcq4Qrzq/fJaraNFVN+nFs=
-github.com/sazap10/bugsnag-api-go v0.0.0-20250527201011-f8bc7ba5bb83 h1:sHqwvpv/fpIMN13G4qr8Owh82I5P4ucJjgHw1CU+hOw=
-github.com/sazap10/bugsnag-api-go v0.0.0-20250527201011-f8bc7ba5bb83/go.mod h1:5v7j2CXSk09/P1KUR0dOUhHJai8URwQGOqCevfudVRE=
 github.com/sazap10/bugsnag-api-go v0.0.0-20250531174949-1e624beb03b9 h1:7/M8Aig+GXwOfsLZQfaJMKB8I77dXnWZo0YvRRaz+pM=
 github.com/sazap10/bugsnag-api-go v0.0.0-20250531174949-1e624beb03b9/go.mod h1:5v7j2CXSk09/P1KUR0dOUhHJai8URwQGOqCevfudVRE=
 github.com/spf13/cast v1.7.1 h1:cuNEagBQEHWN1FnbGEjCXL2szYEXqfJPbP2HNUaca9Y=
