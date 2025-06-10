@@ -80,8 +80,8 @@ func TestExtractIDsFromURI(t *testing.T) {
 			name:     "multiple segments, one missing id",
 			uri:      "bugsnag://projects/123/events",
 			segments: []string{"projects", "events"},
-			want:     map[string]string{"projects": "123"},
-			wantErr:  false,
+			want:     nil,
+			wantErr:  true,
 		},
 	}
 

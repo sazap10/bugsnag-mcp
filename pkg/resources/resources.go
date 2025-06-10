@@ -167,8 +167,8 @@ func extractIDsFromURI(uri string, segments ...string) (map[string]string, error
 			}
 		}
 	}
-	if len(result) == 0 {
-		return nil, fmt.Errorf("no IDs found in URI: %s", uri)
+	if len(result) != len(segments) {
+		return nil, fmt.Errorf("not all IDs found in URI: %s", uri)
 	}
 	return result, nil
 }
