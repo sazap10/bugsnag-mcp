@@ -146,7 +146,7 @@ func HandleEventResource(cfg *config.Config) server.ResourceTemplateHandlerFunc 
 	}
 }
 
-// extractIDsFromURI Extracts IDs from a URI given a list of segment names (e.g., "projects", "events")
+// extractIDsFromURI extracts IDs from a URI given a list of segment names (e.g., "projects", "events").
 func extractIDsFromURI(uri string, segments ...string) (map[string]string, error) {
 	result := make(map[string]string)
 	parts := strings.Split(uri, "/")
