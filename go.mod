@@ -4,7 +4,7 @@ go 1.24.3
 
 require (
 	github.com/mark3labs/mcp-go v0.29.0
-	github.com/sazap10/bugsnag-api-go v0.0.0-20250527201011-f8bc7ba5bb83
+	github.com/sazap10/bugsnag-api-go v0.0.0-20250531174949-1e624beb03b9
 )
 
 require (

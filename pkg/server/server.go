@@ -41,6 +41,12 @@ func registerResources(server *mcpserver.MCPServer, cfg *config.Config) {
 	// Add the organization resource
 	orgResource := resources.NewOrganizationResource()
 	server.AddResource(orgResource, resources.HandleOrganizationResource(cfg))
+	// Add the project resource template
+	projectResource := resources.NewProjectResource()
+	server.AddResourceTemplate(projectResource, resources.HandleProjectResource(cfg))
+	// Add the event resource template
+	eventResource := resources.NewEventResource()
+	server.AddResourceTemplate(eventResource, resources.HandleEventResource(cfg))
 }
 
 // registerTools registers the tools with the MCP server.
@@ -50,6 +56,12 @@ func registerTools(server *mcpserver.MCPServer, cfg *config.Config) {
 
 	projectTool := tools.NewGetUserProjectsTool()
 	server.AddTool(projectTool, tools.HandleGetUserProjectsTool(cfg))
+
+	eventTool := tools.NewGetProjectEventTool()
+	server.AddTool(eventTool, tools.HandleGetProjectEventTool(cfg))
+
+	eventsTool := tools.NewGetProjectEventsTool()
+	server.AddTool(eventsTool, tools.HandleGetProjectEventsTool(cfg))
 }
 
 // ServeStdio starts the MCP server with stdio transport.
