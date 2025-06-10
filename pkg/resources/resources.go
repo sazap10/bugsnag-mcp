@@ -18,6 +18,7 @@ const (
 	EventTemplateURI        = "bugsnag://projects/{project_id}/events/{id}"
 )
 
+// NewOrganizationResource returns the MCP resource for listing Bugsnag organizations.
 func NewOrganizationResource() mcp.Resource {
 	return mcp.NewResource(
 		OrganizationResourceURI,
@@ -27,6 +28,7 @@ func NewOrganizationResource() mcp.Resource {
 	)
 }
 
+// HandleOrganizationResource handles requests to retrieve all organizations for the current user.
 func HandleOrganizationResource(cfg *config.Config) server.ResourceHandlerFunc {
 	return func(ctx context.Context, req mcp.ReadResourceRequest) ([]mcp.ResourceContents, error) {
 		// Call the Bugsnag API to get the list of organizations
@@ -50,6 +52,7 @@ func HandleOrganizationResource(cfg *config.Config) server.ResourceHandlerFunc {
 	}
 }
 
+// NewProjectResource returns the MCP resource template for a single Bugsnag project by ID.
 func NewProjectResource() mcp.ResourceTemplate {
 	return mcp.NewResourceTemplate(
 		ProjectTemplateURI,
@@ -59,6 +62,7 @@ func NewProjectResource() mcp.ResourceTemplate {
 	)
 }
 
+// HandleProjectResource handles requests to retrieve a specific project by ID from Bugsnag.
 func HandleProjectResource(cfg *config.Config) server.ResourceTemplateHandlerFunc {
 	return func(ctx context.Context, req mcp.ReadResourceRequest) ([]mcp.ResourceContents, error) {
 		// Extract the project ID from the request
@@ -96,6 +100,7 @@ func HandleProjectResource(cfg *config.Config) server.ResourceTemplateHandlerFun
 	}
 }
 
+// NewEventResource returns the MCP resource template for a single Bugsnag event by project and event ID.
 func NewEventResource() mcp.ResourceTemplate {
 	return mcp.NewResourceTemplate(
 		EventTemplateURI,
@@ -105,6 +110,7 @@ func NewEventResource() mcp.ResourceTemplate {
 	)
 }
 
+// HandleEventResource handles requests to retrieve a specific event by project and event ID from Bugsnag.
 func HandleEventResource(cfg *config.Config) server.ResourceTemplateHandlerFunc {
 	return func(ctx context.Context, req mcp.ReadResourceRequest) ([]mcp.ResourceContents, error) {
 		// Extract the event ID from the request
@@ -147,13 +153,17 @@ func HandleEventResource(cfg *config.Config) server.ResourceTemplateHandlerFunc 
 }
 
 // extractIDsFromURI extracts IDs from a URI given a list of segment names (e.g., "projects", "events").
+// Returns a map of segment name to ID, e.g. {"projects": "123", "events": "456"}.
 func extractIDsFromURI(uri string, segments ...string) (map[string]string, error) {
 	result := make(map[string]string)
 	parts := strings.Split(uri, "/")
 	for i, part := range parts {
 		for _, seg := range segments {
 			if part == seg && i+1 < len(parts) {
-				result[seg] = parts[i+1]
+				id := parts[i+1]
+				if id != "" {
+					result[seg] = id
+				}
 			}
 		}
 	}

@@ -21,6 +21,7 @@ const (
 	GetProjectEventsToolID     = "get_project_events"
 )
 
+// NewGetUserOrganizationsTool returns the MCP tool for listing Bugsnag organizations for the current user.
 func NewGetUserOrganizationsTool() mcp.Tool {
 	return mcp.NewTool(
 		GetUserOrganizationsToolID,
@@ -28,6 +29,7 @@ func NewGetUserOrganizationsTool() mcp.Tool {
 	)
 }
 
+// HandleGetUserOrganizationsTool handles the tool call to retrieve all organizations for the current user.
 func HandleGetUserOrganizationsTool(cfg *config.Config) server.ToolHandlerFunc {
 	return func(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		orgs, _, err := cfg.APIClient.CurrentUser.ListOrganizations(ctx, nil)
@@ -44,6 +46,7 @@ func HandleGetUserOrganizationsTool(cfg *config.Config) server.ToolHandlerFunc {
 	}
 }
 
+// NewGetUserProjectsTool returns the MCP tool for listing all projects in a specified organization.
 func NewGetUserProjectsTool() mcp.Tool {
 	return mcp.NewTool(
 		GetUserProjectsToolID,
@@ -56,6 +59,7 @@ func NewGetUserProjectsTool() mcp.Tool {
 	)
 }
 
+// HandleGetUserProjectsTool handles the tool call to retrieve all projects for a given organization.
 func HandleGetUserProjectsTool(cfg *config.Config) server.ToolHandlerFunc {
 	return func(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		org_id, err := req.RequireString("organization_id")
@@ -76,6 +80,7 @@ func HandleGetUserProjectsTool(cfg *config.Config) server.ToolHandlerFunc {
 	}
 }
 
+// NewGetProjectEventTool returns the MCP tool for retrieving a specific event for a project.
 func NewGetProjectEventTool() mcp.Tool {
 	return mcp.NewTool(
 		GetProjectEventToolID,
@@ -93,6 +98,7 @@ func NewGetProjectEventTool() mcp.Tool {
 	)
 }
 
+// HandleGetProjectEventTool handles the tool call to retrieve a specific event for a project by event ID or link.
 func HandleGetProjectEventTool(cfg *config.Config) server.ToolHandlerFunc {
 	return func(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		projectID, err := req.RequireString("project_id")
@@ -123,6 +129,7 @@ func HandleGetProjectEventTool(cfg *config.Config) server.ToolHandlerFunc {
 	}
 }
 
+// NewGetProjectEventsTool returns the MCP tool for listing all events for a project.
 func NewGetProjectEventsTool() mcp.Tool {
 	return mcp.NewTool(
 		GetProjectEventsToolID,
@@ -135,6 +142,7 @@ func NewGetProjectEventsTool() mcp.Tool {
 	)
 }
 
+// HandleGetProjectEventsTool handles the tool call to retrieve all events for a given project.
 func HandleGetProjectEventsTool(cfg *config.Config) server.ToolHandlerFunc {
 	return func(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		projectID, err := req.RequireString("project_id")
@@ -157,8 +165,8 @@ func HandleGetProjectEventsTool(cfg *config.Config) server.ToolHandlerFunc {
 	}
 }
 
-// getEventIDFromIDOrLink returns the event ID which can be either a direct ID or a link to the event.
-// It expects the Link to be in the format: https://{bugsnag_host}/{org_slug}/{project_slug}/errors/{error_id}?filters[event.since]=all&event_id={event_id}
+// getEventIDFromIDOrLink extracts the event ID from either a direct ID or a Bugsnag dashboard link.
+// If a link is provided, it parses the URL and returns the event_id query parameter.
 func getEventIDFromIDOrLink(idOrLink string) (string, error) {
 	// If it's a plain ID (no slashes, no http), just return it
 	if !strings.Contains(idOrLink, "/") && !strings.HasPrefix(idOrLink, "http") {
