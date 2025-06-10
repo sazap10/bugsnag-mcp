@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func Test_getEventIDFromIDOrLink(t *testing.T) {
+func TestGetEventIDFromIDOrLink(t *testing.T) {
 	tests := []struct {
 		name      string
 		input     string
